@@ -12,9 +12,6 @@ set-variable MYVIMRC "$work\projects\config\_vimrc"
 set-variable junk "$work\junk" 
 set-variable poshsql "$work\projects\poshsql"
 set-variable config "$work\projects\config"
-if (test-Path $PROFILE2){
-    & $PROFILE2
-}
 Write-Host "Setting environment for $computerName" -foregroundcolor cyan
 #}}}
 # Setting the Path {{{
@@ -154,5 +151,10 @@ function prompt {
     
 	Write-Host('$') -nonewline -foregroundcolor Green    
 	return " "
+}
+#}}}
+# Source Private Profile {{{
+if (test-Path $PROFILE2){
+    & $PROFILE2
 }
 #}}}

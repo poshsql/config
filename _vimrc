@@ -9,6 +9,7 @@ behave mswin
 call pathogen#infect() "This is for the Pathogen to work
 call pathogen#helptags()
 set encoding=utf-8 "This is for the powerline
+let $MYVIMRC='$VIM/../../projects/config/_vimrc'
 "}}}
 " Basic Settings {{{
 se nu
@@ -61,7 +62,7 @@ au GUIEnter * simalt ~x "this is for full screen
 set showtabline=1
 set cmdheight=1
 if has('gui_running')
-    colorscheme xoria256
+    colorscheme badwolf
     se cursorline
 endif
 set linespace=0 " Pixels of space between lines
