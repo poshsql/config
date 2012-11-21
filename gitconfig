@@ -1,0 +1,38 @@
+[core]
+	symlinks = false
+	autocrlf = true
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = true
+[pack]
+	packSizeLimit = 2g
+[help]
+	format = html
+[http]
+	sslCAinfo = /bin/curl-ca-bundle.crt
+[sendemail]
+	smtpserver = /bin/msmtp.exe
+
+[diff "astextplain"]
+	textconv = astextplain
+[rebase]
+	autosquash = true
+[user]
+	name = Shiju Samuel
+	email = shiju.samuel@gmail.com
+[core]
+	editor = \"d:\\Work\\tools\\vim\\gvim.exe\"
+[diff]
+    external = "C:/Work/projects/config/gitdiff.sh" 
+[alias]
+     l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset'
+     #git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset"
+
+     s = status -s
+[color]
+     diff = auto
+     status = auto
+     branch = auto
+     ui = auto

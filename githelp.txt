@@ -1,0 +1,26 @@
+------------------how to rename a file in the repository------------------------
+git mv fromfile tofile
+
+------------------how to add submodule to a project-----------------------------
+git submodule add https://github.com/Lokaltog/vim-powerline.git bundle/powerline
+git submodule add https://github.com/vim-scripts/vimwiki.git bundle/vimwiki
+git submodule add https://github.com/vim-scripts/AutoComplPop.git bundle/autocomplpop
+git submodule add https://github.com/corntrace/bufexplorer.git bundle/bufexplorer
+git submodule add https://github.com/myusuf3/numbers.vim.git bundle/numbers
+git submodule add https://github.com/godlygeek/tabular.git bundle/tabular
+git submodule add https://github.com/drmingdrmer/xptemplate.git bundle/xptemplate
+
+------------------How tho checkout submodule checkout-------------------------
+git submodule init
+git submodule update
+
+----------------Keep things uptodate regularly------------------------------
+git submodule foreach git pull origin master
+
+----------------Remove module which you don't want--------------------------
+To remove a submodule you need to:
+Delete the relevant section from the .gitmodules file.
+Delete the relevant section from .git/config.
+Run git rm --cached path_to_submodule (no trailing slash).
+Commit and delete the now untracked submodule files.
+----------------------------------------------------------------------------
