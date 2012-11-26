@@ -12,6 +12,7 @@
 	format = html
 [http]
 	sslCAinfo = /bin/curl-ca-bundle.crt
+	#sslVerify = false
 [sendemail]
 	smtpserver = /bin/msmtp.exe
 

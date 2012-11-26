@@ -31,7 +31,7 @@ new-item alias:ex -value "explorer.exe"
 #}}}
 # Functions {{{
 #Set-ExecutionPolicy remotesigned
-function vi([string] $parameters){
+function v([string] $parameters){
 	if ($parameters -eq "") {
 		gvim --remote-silent 
 	}else{
@@ -44,6 +44,11 @@ function pq {
 	remove-module poshsql;
 	import-module poshsql;
 	get-command -module poshsql;
+}
+# Get the current branch
+function currentdir {
+    $currentdir = (pwd).tostring().split('\')[-1]
+    $Host.UI.RawUI.WindowTitle = $currentdir
 }
 #}}}
 # Git functions {{{
@@ -125,6 +130,7 @@ function gitStatus {
 # Prompt Functions {{{
 function prompt {
     Write-Host ("+ " + $(get-location)) -foregroundcolor Yellow
+    currentdir
     
     if (isCurrentDirectoryGitRepository) {
         $status = gitStatus
