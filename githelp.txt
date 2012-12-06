@@ -9,6 +9,7 @@ git submodule add https://github.com/corntrace/bufexplorer.git bundle/bufexplore
 git submodule add https://github.com/myusuf3/numbers.vim.git bundle/numbers
 git submodule add https://github.com/godlygeek/tabular.git bundle/tabular
 git submodule add https://github.com/drmingdrmer/xptemplate.git bundle/xptemplate
+git submodule add http://github.com/PProvost/vim-ps1 bundle/ps1
 
 ------------------How tho checkout submodule checkout-------------------------
 git submodule init

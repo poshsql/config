@@ -4,16 +4,16 @@ if (!(test-path variable:global:tools)){ write-host '$tools not set aborting' -f
 if (!(test-path variable:global:projects)){ write-host '$projects not set aborting' -fore red; return; }
 #}}}
 #Vim colors {{{
-if (!(test-path $tools\vim\bin\colors)){
-    $cmd = "cmd /c 'mklink /D $tools\vim\bin\colors\' '$projects\config\colors\'" 
+if (!(test-path $tools\vim\vim73\colors)){
+    $cmd = "cmd /c 'mklink /D $tools\vim\vim73\colors\' '$projects\config\colors\'" 
     invoke-expression $cmd 
 }else {
     write-host "vim colors is already mapped" -fore cyan
 }
 #}}}
 #Vim bundle (pathogen) {{{
-if (!(test-path $tools\vim\bin\bundle)){
-    $cmd = "cmd /c 'mklink /D $tools\vim\bin\bundle\' '$projects\config\bundle\'" 
+if (!(test-path $tools\vim\vim73\bundle)){
+    $cmd = "cmd /c 'mklink /D $tools\vim\vim73\bundle\' '$projects\config\bundle\'" 
     invoke-expression $cmd 
 }else {
     write-host "vim bundle is already mapped" -fore cyan

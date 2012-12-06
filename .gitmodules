@@ -30,3 +30,7 @@
 	path = bundle/LustyJuggler
 	url = https://github.com/vim-scripts/LustyJuggler.git
     ignore = dirty
+[submodule "bundle/ps1"]
+	path = bundle/ps1
+	url = http://github.com/PProvost/vim-ps1
+    ignore = dirty
