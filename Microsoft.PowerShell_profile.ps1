@@ -1,5 +1,5 @@
 # General variables {{{
-if ($env:COMPUTERNAME -eq 'AARON'){
+if ($env:COMPUTERNAME -eq 'AARON' -or $env:COMPUTERNAME -eq 'medusa'){
     set-variable work "D:\Work" 
 }else{
     set-variable work "C:\Work" 
@@ -21,8 +21,8 @@ Write-Host "Setting environment for $computerName" -foregroundcolor cyan
 #}}}
 # Powershell Alias {{{
 new-item alias:np -value "C:\Windows\System32\notepad.exe"
-new-item alias:gvim -value "$tools\vim\gvim.exe"
-new-item alias:vim -value "$tools\vim\vim.exe"
+new-item alias:gvim -value "$tools\vim\bin\gvim.exe"
+new-item alias:vim -value "$tools\vim\bin\vim.exe"
 new-item alias:ediff -value "$tools\examdiff.exe"
 new-item alias:ex -value "explorer.exe"
 #For explorer to work in a sepearate process below registry value should be set to 1

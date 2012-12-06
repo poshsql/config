@@ -4,16 +4,16 @@ if (!(test-path variable:global:tools)){ write-host '$tools not set aborting' -f
 if (!(test-path variable:global:projects)){ write-host '$projects not set aborting' -fore red; return; }
 #}}}
 #Vim colors {{{
-if (!(test-path $tools\vim\runtime\colors)){
-    $cmd = "cmd /c 'mklink /D $tools\vim\runtime\colors\' '$projects\config\colors\'" 
+if (!(test-path $tools\vim\bin\colors)){
+    $cmd = "cmd /c 'mklink /D $tools\vim\bin\colors\' '$projects\config\colors\'" 
     invoke-expression $cmd 
 }else {
     write-host "vim colors is already mapped" -fore cyan
 }
 #}}}
 #Vim bundle (pathogen) {{{
-if (!(test-path $tools\vim\runtime\bundle)){
-    $cmd = "cmd /c 'mklink /D $tools\vim\runtime\bundle\' '$projects\config\bundle\'" 
+if (!(test-path $tools\vim\bin\bundle)){
+    $cmd = "cmd /c 'mklink /D $tools\vim\bin\bundle\' '$projects\config\bundle\'" 
     invoke-expression $cmd 
 }else {
     write-host "vim bundle is already mapped" -fore cyan
@@ -43,7 +43,7 @@ if (!(test-path $profile)){
     write-host "Powershell Profile is already mapped" -fore cyan
 }
 #}}}
-#Vim vimrc  {{{
+#Console2 {{{
 if (!(test-path $tools\console2\console.xml)){
     $cmd = "cmd /c 'mklink $tools\console2\console.xml' '$projects\config\console.xml'" 
     invoke-expression $cmd 

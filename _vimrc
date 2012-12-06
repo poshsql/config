@@ -66,7 +66,7 @@ if has('gui_running')
     se cursorline
 endif
 set linespace=0 " Pixels of space between lines
-set guifont=consolas:h12:cDEFAULT
+set guifont=consolas:h11:cDEFAULT
 " }}}
 " Key Mapping {{{
 let mapleader=","
