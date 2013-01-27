@@ -19,6 +19,22 @@ if (!(test-path $tools\vim\vim73\bundle)){
     write-host "vim bundle is already mapped" -fore cyan
 }
 #}}}
+#Vim XPTemplate (personal C){{{
+if (!(test-path $config\bundle\XPTemplate\personal\ftplugin\c)){
+    $cmd = "cmd /c 'mklink /D $config\bundle\XPTemplate\personal\ftplugin\c' '$config\XPTemplate\c'" 
+    invoke-expression $cmd 
+}else {
+    write-host "XPTemplate for C is already mapped" -fore cyan
+}
+#}}}
+#Vim XPTemplate (personal PS1){{{
+if (!(test-path $config\bundle\XPTemplate\personal\ftplugin\PS1)){
+    $cmd = "cmd /c 'mklink /D $config\bundle\XPTemplate\personal\ftplugin\ps1' '$config\XPTemplate\ps1'" 
+    invoke-expression $cmd 
+}else {
+    write-host "XPTemplate for ps1 is already mapped" -fore cyan
+}
+#}}}
 #Vim vimrc  {{{
 if (!(test-path $tools\vim\_vimrc)){
     $cmd = "cmd /c 'mklink $tools\vim\_vimrc' '$projects\config\_vimrc'" 
@@ -56,7 +72,7 @@ if (!(test-path $tools\git\etc\gitconfig)){
     $cmd = "cmd /c 'mklink $tools\git\etc\gitconfig' '$projects\config\gitconfig'" 
     invoke-expression $cmd 
 }else {
-    write-host "console2 is already mapped" -fore cyan
+    write-host "gitconfig is already mapped" -fore cyan
 }
 #}}}
 # PoshSql mapping to module {{{

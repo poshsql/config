@@ -1,5 +1,5 @@
 # General variables {{{
-if ($env:COMPUTERNAME -eq 'AARON' -or $env:COMPUTERNAME -eq 'medusa'){
+if ($env:COMPUTERNAME -eq 'shiju' -or $env:COMPUTERNAME -eq 'medusa'){
     set-variable work "D:\Work" 
 }else{
     set-variable work "C:\Work" 
@@ -13,17 +13,33 @@ set-variable junk "$work\junk"
 set-variable poshsql "$work\projects\poshsql"
 set-variable config "$work\projects\config"
 Write-Host "Setting environment for $computerName" -foregroundcolor cyan
+
+#$sw = @'
+#[DllImport("user32.dll")]
+#public static extern int ShowWindow(int hwnd, int nCmdShow);
+#'@
+
+#$type = Add-Type -Name ShowWindow2 -MemberDefinition $sw -Language CSharpVersion3 -Namespace Utils -PassThru
+
+#}}}
+# Environment variables {{{
+# This is for C compiler
+$env:INCLUDE = "D:\Work\tools\PellesC\Include"
+$env:LIB = "D:\Work\tools\PellesC\LIB;D:\Work\tools\PellesC\LIB\win"
 #}}}
 # Setting the Path {{{
 [System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";" +  $tools, "Process")
 [System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";" + (Join-Path $tools "\git\bin"), "Process")
+[System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";" + (Join-Path $tools "\PellesC\Bin"), "Process")
 [System.Environment]::SetEnvironmentVariable("HOME", (Join-Path $Env:HomeDrive $Env:HomePath), "Process")
 #}}}
 # Powershell Alias {{{
 new-item alias:np -value "C:\Windows\System32\notepad.exe"
 new-item alias:gvim -value "$tools\vim\vim73\gvim.exe"
+new-item alias:pixie -value "D:\Work\tools\pixie\pixie.exe"
 new-item alias:vim -value "$tools\vim\vim73\vim.exe"
 new-item alias:ediff -value "$tools\examdiff.exe"
+new-item alias:fo -value "$tools\fossil.exe"
 new-item alias:ex -value "explorer.exe"
 #For explorer to work in a sepearate process below registry value should be set to 1
 #This makes sure the process starts with a current
@@ -31,15 +47,22 @@ new-item alias:ex -value "explorer.exe"
 #}}}
 # Functions {{{
 #Set-ExecutionPolicy remotesigned
-function v([string] $parameters){
+function vi([string] $parameters){
 	if ($parameters -eq "") {
-		gvim --remote-silent 
+        if (!(ps gvim -EA SilentlyContinue)){
+    		gvim --servername Files
+        }
 	}else{
-		gvim --remote-silent $parameters
+		gvim --servername Files --remote-silent-wait $parameters
 	}
+#    $gx = ps gvim #| select -first 1
+#    $gx
+#    $type::ShowWindow($gx.handle,6) #Minimize first
+#    $type::ShowWindow($gx.handle,9) #Than restore
+
 }
 cd $poshsql 
-import-module poshsql
+#import-module poshsql
 function pq {
 	remove-module poshsql;
 	import-module poshsql;

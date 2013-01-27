@@ -31,6 +31,7 @@ set shiftwidth=4 " number of spaces to use for autoindenting
 set tabstop=4 " a tab is four spaces
 set softtabstop=4
 set expandtab
+autocmd BufNewFile, BufRead *.txt set fo+=t tw=80 | normal gggqG 
 "}}}
 " ColorScheme and GuiOptions {{{
 " ----------------------------------------
@@ -53,20 +54,20 @@ set expandtab
 " i = icon
 "set guioptions=fatig
 se guioptions-=rL "Removes the right scrollbar
-au GUIEnter * simalt ~x "this is for full screen
+"au GUIEnter * simalt ~x "this is for full screen
 "Below will set the initial position and fixed width
 "Just in case if you don't want the full screen option
-":winpos 10 10
-":set lines=31
-":set columns=105
+:winpos 0 0
+:set lines=55
+:set columns=113
 set showtabline=1
 set cmdheight=1
 if has('gui_running')
-    colorscheme badwolf
+    colorscheme myxoria256
     se cursorline
 endif
 set linespace=0 " Pixels of space between lines
-set guifont=consolas:h11:cDEFAULT
+set guifont=consolas:h10:cDEFAULT
 " }}}
 " Key Mapping {{{
 let mapleader=","
@@ -127,7 +128,7 @@ nnoremap zO zCzO
 augroup ft_vim
 au!
 au FileType vim setlocal foldmethod=marker foldmarker={{{,}}}
-au FileType help setlocal textwidth=78
+"au FileType help setlocal textwidth=78
 "au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 augroup END
 
