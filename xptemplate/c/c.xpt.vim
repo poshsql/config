@@ -1,16 +1,14 @@
-XPTemplate priority=lang-1
-
-
+XPTemplate priority=personal
 
 XPTinclude
       \ _common/common
 
 
-XPT main2	" Expands default main
+XPT main	" Expands default main
 #include <stdio.h>
-
-int main()
-{
+/* `comment^ */
+int main(void) {
+    `content^ 
     return 0;
 }
 "printf(`$SParg^`:_printfElts:^`$SParg^)

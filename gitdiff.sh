@@ -10,7 +10,7 @@ else
 #            "D:/Software/DiffMerge_3_1_0_15888/DiffMerge.exe" "$1" "$2"
 #        else
 #            if [ x"$diff" = xE -o x"$diff" = xe  ]; then
-    "C:/Work/tools/ExamDiff.exe" "$1" "$2"
+    "D:/Work/tools/ExamDiff.exe" "$1" "$2"
 #            fi
 #        fi
 fi

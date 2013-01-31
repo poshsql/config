@@ -25,12 +25,11 @@
 	email = shiju.samuel@gmail.com
 [core]
 	editor = \"d:\\Work\\tools\\vim\\gvim.exe\"
-[diff]
+[difftools]
     external = "C:/Work/projects/config/gitdiff.sh" 
 [alias]
      l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset'
      #git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset"
-
      s = status -s
 [color]
      diff = auto

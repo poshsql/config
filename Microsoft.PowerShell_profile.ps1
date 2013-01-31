@@ -61,7 +61,25 @@ function vi([string] $parameters){
 #    $type::ShowWindow($gx.handle,9) #Than restore
 
 }
-cd $poshsql 
+function c()
+{
+    dir *.c | sort -Property LastwriteTime -Descending | select -first 1 | % {cc $_.Name /x}
+}
+
+function cleanc()
+{
+    del *.exe 
+    del *.obj 
+}
+function x()
+{
+    dir *.exe | sort -Property LastwriteTime -Descending | select -first 1 | % {&($_)}
+}
+function l()
+{
+    dir | sort LastWriteTime -Descending
+}
+cd $projects\c\kr\ 
 #import-module poshsql
 function pq {
 	remove-module poshsql;

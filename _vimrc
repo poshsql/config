@@ -5,6 +5,7 @@ filetype indent on
 filetype plugin on
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
+source ExecuteSQL.vim
 behave mswin
 call pathogen#infect() "This is for the Pathogen to work
 call pathogen#helptags()
@@ -63,7 +64,7 @@ se guioptions-=rL "Removes the right scrollbar
 set showtabline=1
 set cmdheight=1
 if has('gui_running')
-    colorscheme myxoria256
+    colorscheme mayansmoke
     se cursorline
 endif
 set linespace=0 " Pixels of space between lines
@@ -83,7 +84,8 @@ map <right> <nop>
 map <Leader>ca :%y<CR>
 map <Leader>q "qy
 map <F2> :e $MYVIMRC<CR>
-map <F3> :so $MYVIMRC<CR>
+map <F3> :e $VIM/../../projects/config/xptemplate/c/c.xpt.vim<CR>
+"map <F3> :so $MYVIMRC<CR>
 nmap <silent> ,/ :nohlsearch<CR>
 "Putting a newline without entering into insert mode
 map <S-Enter> o<Esc>
