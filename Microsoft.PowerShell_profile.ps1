@@ -79,7 +79,7 @@ function l()
 {
     dir | sort LastWriteTime -Descending
 }
-cd $projects\c\kr\ 
+cd $projects\programming\c\kr\ 
 #import-module poshsql
 function pq {
 	remove-module poshsql;

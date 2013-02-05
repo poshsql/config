@@ -32,7 +32,10 @@ set shiftwidth=4 " number of spaces to use for autoindenting
 set tabstop=4 " a tab is four spaces
 set softtabstop=4
 set expandtab
-autocmd BufNewFile, BufRead *.txt set fo+=t tw=80 | normal gggqG 
+"autocmd BufNewFile, BufRead *.txt set fo+=t tw=80 | normal gggqG 
+"autocmd BufNewFile, BufRead *.mkd set fo+=t tw=80 | normal gggqG 
+autocmd FileType txt setlocal textwidth=80 
+autocmd FileType mkd setlocal textwidth=80 
 "}}}
 " ColorScheme and GuiOptions {{{
 " ----------------------------------------

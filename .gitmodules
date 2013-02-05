@@ -34,3 +34,6 @@
 	path = bundle/ps1
 	url = http://github.com/PProvost/vim-ps1
     ignore = dirty
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = https://github.com/tpope/vim-markdown.git
