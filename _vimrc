@@ -3,6 +3,7 @@ set nocompatible
 filetype on
 filetype indent on
 filetype plugin on
+set textwidth=100
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
 source $VIMRUNTIME/../ExecuteSQL.vim
@@ -21,6 +22,7 @@ set backupcopy=yes
 set ignorecase
 set hidden "This makes buffer switching easier, without saving
 "set visualbell " donot beep
+set vb t_vb=
 set noerrorbells " donot beep
 set autoindent " always set autoindenting on
 set smartindent
@@ -31,11 +33,13 @@ set backspace=indent,eol,start " allow backspacing over everything in insert mod
 set shiftwidth=4 " number of spaces to use for autoindenting
 set tabstop=4 " a tab is four spaces
 set softtabstop=4
+set synmaxcol=200 "Syntax highlighting on long lines are very slow so removing the syntax highlighing after 200 columns
 set expandtab
-"autocmd BufNewFile, BufRead *.txt set fo+=t tw=80 | normal gggqG 
-"autocmd BufNewFile, BufRead *.mkd set fo+=t tw=80 | normal gggqG 
-autocmd FileType txt setlocal textwidth=80 
-autocmd FileType mkd setlocal textwidth=80 
+autocmd VimEnter * NumbersToggle
+"autocmd BufNewFile, BufRead *.txt set fo+=t tw=100 | normal gggqG 
+"autocmd BufNewFile, BufRead *.mkd set fo+=t tw=100 | normal gggqG 
+"autocmd FileType txt setlocal textwidth=100 
+"autocmd FileType mkd setlocal textwidth=100 
 "}}}
 " ColorScheme and GuiOptions {{{
 " ----------------------------------------
@@ -58,23 +62,38 @@ autocmd FileType mkd setlocal textwidth=80
 " i = icon
 "set guioptions=fatig
 se guioptions-=rL "Removes the right scrollbar
+"set guioptions-=T "Remove the toolbar
+"set guioptions-=m "Remove the toolbar
 "au GUIEnter * simalt ~x "this is for full screen
 "Below will set the initial position and fixed width
 "Just in case if you don't want the full screen option
-:winpos 0 0
-:set lines=55
-:set columns=113
+set cindent
+set cinkeys=0{,0},!^F,o,O,e " default is: 0{,0},0),:,0#,!^F,o,O,e
 set showtabline=1
 set cmdheight=1
 if has('gui_running')
-    colorscheme mayansmoke
-    se cursorline
+    ":winpos 50 3
+    :winpos 550 0
+    :set lines=55
+    :set columns=130
+    "colorscheme myxoria256
+    "colorscheme autumnleaf
+    "colorscheme mayansmoke
+    "colorscheme porton
+    colorscheme molokaiplain
+    "colorscheme habilight
+    "colorscheme xoria256
+    "colorscheme wombat
+    "colorscheme darkblue
+    "colorscheme Powerblue
+    "se cursorline "This will highlight the current line
 endif
 set linespace=0 " Pixels of space between lines
-set guifont=consolas:h10:cDEFAULT
+"set guifont=consolas:h11:cDEFAULT
+set guifont=Monaco:h10:cDEFAULT
 " }}}
 " Key Mapping {{{
-let mapleader=","
+"let mapleader=","
 imap jk <Esc>
 "imap ) )<Esc>i
 "imap } }<Esc>i<CR><CR><Esc>ki<TAB>
@@ -82,8 +101,9 @@ imap jk <Esc>
 noremap ,, ,
 map <up> <nop>
 map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+map <left> :bprevious<cr>
+map <right> :bnext<cr>
+map <Q> gq 
 map <Leader>ca :%y<CR>
 map <Leader>q "qy
 map <F2> :e $MYVIMRC<CR>
@@ -93,12 +113,17 @@ nmap <silent> ,/ :nohlsearch<CR>
 "Putting a newline without entering into insert mode
 map <S-Enter> o<Esc>
 "Mapping capital H and L
-map H 0
+map H ^
 map L $
 "deleting all empty lines
 nmap <silent> ,de :g/^\s*$/d<CR>
 map <Leader>x "qy:call ExecuteSQL()<CR>
-
+map <Leader>bn :bn<CR>
+map <Leader><bs> gggqG 
+map <Leader>bp :bp<CR>
+map <Leader>bb :b#<CR>
+map <Leader>bd :bd<CR>
+map <Leader>ls :ls<CR>
 "}}}
 " Plugins {{{
 " Powerline {{{
@@ -145,6 +170,7 @@ augroup ft_powershell
 au!
 "au BufRead,BufNewFile *.ps1 set ft=ps1
 au FileType ps1 setlocal foldmethod=marker foldmarker={{{,}}}
+au FileType psm1 setlocal foldmethod=marker foldmarker={{{,}}}
 augroup END
 "" }}}
 "" }}}

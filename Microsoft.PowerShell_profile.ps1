@@ -1,18 +1,24 @@
-# General variables {{{
-if ($env:COMPUTERNAME -eq 'shiju' -or $env:COMPUTERNAME -eq 'medusa'){
+﻿# General variables {{{
+if ($env:COMPUTERNAME -eq 'shiju' -or $env:COMPUTERNAME -eq 'medusa' -or $env:COMPUTERNAME -eq 'pcshiju' ){
     set-variable work "D:\Work" 
 }else{
     set-variable work "C:\Work" 
 }
-set-variable tools "$work\tools"
-set-variable projects "$work\projects" 
+
+set-variable TOOLS "$work\tools"
+set-variable PROJECTS "$work\projects" 
 set-variable PROFILE "$work\projects\config\Microsoft.PowerShell_profile.ps1" 
 set-variable PROFILE2 "$work\projects\config\Private.PS_Profile.ps1" 
 set-variable MYVIMRC "$work\projects\config\_vimrc" 
-set-variable junk "$work\junk" 
-set-variable poshsql "$work\projects\poshsql"
-set-variable config "$work\projects\config"
+
+set-variable JUNK "$work\junk" 
+set-variable POSHSQL "$work\projects\programming\powershell\poshsql"
+set-variable PS "$work\projects\programming\powershell\"
+set-variable CONFIG "$work\projects\config"
+set-variable VIM "$tools\vim\vim73\gvim.exe"
+set-variable HOSTS "C:\Windows\System32\Drivers\etc\hosts"
 Write-Host "Setting environment for $computerName" -foregroundcolor cyan
+
 
 #$sw = @'
 #[DllImport("user32.dll")]
@@ -24,8 +30,12 @@ Write-Host "Setting environment for $computerName" -foregroundcolor cyan
 #}}}
 # Environment variables {{{
 # This is for C compiler
-$env:INCLUDE = "D:\Work\tools\PellesC\Include"
-$env:LIB = "D:\Work\tools\PellesC\LIB;D:\Work\tools\PellesC\LIB\win"
+#$env:INCLUDE = "c:\Work\tools\PellesC\Include"
+#$env:LIB = "c:\Work\tools\PellesC\LIB;c:\Work\tools\PellesC\LIB\win"
+#}}}
+# Dashboard Display {{{
+# Display if we have entry in the host file
+gc $hosts | ? {$_ -notlike '#*' -and $_.ToString().Trim() -ne ""} | % {write-host $_ -foregroundColor magenta}
 #}}}
 # Setting the Path {{{
 [System.Environment]::SetEnvironmentVariable("PATH", $Env:Path + ";" +  $tools, "Process")
@@ -36,17 +46,23 @@ $env:LIB = "D:\Work\tools\PellesC\LIB;D:\Work\tools\PellesC\LIB\win"
 # Powershell Alias {{{
 new-item alias:np -value "C:\Windows\System32\notepad.exe"
 new-item alias:gvim -value "$tools\vim\vim73\gvim.exe"
+new-item alias:vi -value "$tools\vim\vim73\gvim.exe"
 new-item alias:pixie -value "D:\Work\tools\pixie\pixie.exe"
 new-item alias:vim -value "$tools\vim\vim73\vim.exe"
 new-item alias:ediff -value "$tools\examdiff.exe"
-new-item alias:fo -value "$tools\fossil.exe"
 new-item alias:ex -value "explorer.exe"
+new-item alias:wm -value "$tools\winmerge\winmergeu.exe"
+new-item alias:vs -value "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.exe"
+new-item alias:wcf -value "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\wcftestclient.exe"
+new-item alias:excel -value "C:\Program Files\Microsoft Office 15\root\office15\excel.exe"
+new-item alias:winword -value "C:\Program Files\Microsoft Office 15\root\office15\winword.exe"
 #For explorer to work in a sepearate process below registry value should be set to 1
 #This makes sure the process starts with a current
 #HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\advanced\SeparateProcess 
 #}}}
 # Functions {{{
 #Set-ExecutionPolicy remotesigned
+<#
 function vi([string] $parameters){
 	if ($parameters -eq "") {
         if (!(ps gvim -EA SilentlyContinue)){
@@ -61,6 +77,8 @@ function vi([string] $parameters){
 #    $type::ShowWindow($gx.handle,9) #Than restore
 
 }
+#>
+
 function c()
 {
     dir *.c | sort -Property LastwriteTime -Descending | select -first 1 | % {cc $_.Name /x}
@@ -79,8 +97,8 @@ function l()
 {
     dir | sort LastWriteTime -Descending
 }
-cd $projects\programming\c\kr\ 
-#import-module poshsql
+cd $projects
+import-module D:\Work\projects\programming\powershell\wmi\wmiquery.psm1 
 function pq {
 	remove-module poshsql;
 	import-module poshsql;
@@ -91,10 +109,24 @@ function currentdir {
     $currentdir = (pwd).tostring().split('\')[-1]
     $Host.UI.RawUI.WindowTitle = $currentdir
 }
+
+function elevate-process
+{
+    $file, [string]$arguments = $args;
+    $psi = new-object System.Diagnostics.ProcessStartInfo $file;
+    $psi.Arguments = $arguments;
+    $psi.Verb = "runas";
+    $psi.WorkingDirectory = get-location;
+    [System.Diagnostics.Process]::Start($psi);
+} 
+set-alias sudo elevate-process;
+
+function edit-host {
+    SUDO $VIM $HOSTS
+}
 #}}}
 # Git functions {{{
 # Mark Embling (http://www.markembling.info/)
-
 # Is the current directory a git repository/working copy?
 function isCurrentDirectoryGitRepository {
     if ((Test-Path ".git") -eq $TRUE) {
@@ -167,10 +199,15 @@ function gitStatus {
              "aheadCount" = $aheadCount;
              "branch" = $branch}
 }
-#}}}
+#}}} 
 # Prompt Functions {{{
 function prompt {
-    Write-Host ("+ " + $(get-location)) -foregroundcolor Yellow
+    if ($(get-location).path  -like 'c:*' -or $(get-location).path  -like 'd:*'){
+        Write-Host ("+ " + $(get-location)) -foregroundcolor Yellow
+    }else {
+        Write-Host ("+ " + $(get-location)) -foregroundcolor Red
+    }
+
     currentdir
     
     if (isCurrentDirectoryGitRepository) {
@@ -203,5 +240,63 @@ function prompt {
 # Source Private Profile {{{
 if (test-Path $PROFILE2){
     & $PROFILE2
+}
+#}}}
+# Directory Bookmarks Functions {{{
+$marks = @{};
+
+#$marksPath = Join-Path (split-path -parent $profile) .bookmarks
+$marksPath = "$PROJECTS\programming\powershell\data\bookmarks.txt"
+
+if(test-path $marksPath){
+import-csv $marksPath | %{$marks[$_.key]=$_.value}
+}
+
+function mset($number){
+$marks["$number"] = (pwd).path
+}
+
+function mg($number){
+cd $marks["$number"]
+}
+
+function mdump{
+$marks.getenumerator() | export-csv $marksPath -notype
+}
+
+function mls{
+$marks
+}
+#}}}
+# Authentication Bookmarks Functions {{{
+$AuthData = @{};
+
+#$AuthPath = Join-Path (split-path -parent $profile) .bookmarks
+$AuthPath = "$PROJECTS\programming\powershell\data\authinfo.txt"
+
+if(test-path $AuthPath ){
+import-csv $AuthPath | %{$AuthData[$_.key]=$_.value}
+}
+
+function set-ad($user,$password){
+$AuthData["$user"] = $password 
+dumpauthdata
+}
+
+function get-ad($user){
+cd $AuthData["$user"]
+}
+
+function dumpauthdata{
+$AuthData.getenumerator() | export-csv $authpath -notype
+}
+
+function lad{
+$AuthData
+}
+#}}}
+# Speak Line function {{{
+function speak-line($line){
+    (New-Object -ComObject SAPI.SPVoice).Speak($line) | Out-Null
 }
 #}}}

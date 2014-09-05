@@ -26,7 +26,7 @@
 [core]
 	editor = \"d:\\Work\\tools\\vim\\gvim.exe\"
 [difftools]
-    external = "C:/Work/projects/config/gitdiff.sh" 
+    external = "d:/Work/projects/config/gitdiff.sh" 
 [alias]
      l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset'
      #git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset"
