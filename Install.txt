@@ -1,0 +1,72 @@
+0. Clone the Configuration
+   =======================
+    1. Clone config repository  to $projects
+		git clone https://github.com/poshsql/config.git config
+
+1.  Mklink Powershell Profile
+	=========================
+	1. Make sure the $profile directory exists
+	2. Mklink profile	
+	if (!(test-path $profile)){
+    $cmd = "cmd /c 'mklink $Profile' '$projects\config\Microsoft.PowerShell_profile.ps1'" 
+    invoke-expression $cmd 
+	}else {
+		write-host "Powershell Profile is already mapped" -fore cyan
+	}
+	3. set execution policy to remotesigned
+	Set-ExecutionPolicy remotesigned
+	
+
+2. Install Git First
+   =================
+
+	The aim is to work git and curl in both powershell and cmd. 
+	1. Download latest git and install in the default directory
+	2. Copy the git binary to $tools
+	3. Add Path for ;D:\Work\Tools\Git\bin;D:\Work\Tools\Git\cmd
+	4. Test git and curl in command prompt and powershell
+	5. if curl already exist in powershell -
+			set-item alias:curl -value "D:\Work\tools\Git\bin\curl.exe"
+
+	6. Open powershell in the admin context and replace the gitconfig
+		if (!(test-path $tools\git\etc\gitconfig)){
+			$cmd = "cmd /c 'mklink $tools\git\etc\gitconfig' '$projects\config\gitconfig'" 
+			invoke-expression $cmd 
+		}else {
+			write-host "gitconfig is already mapped" -fore cyan
+		}
+	
+3. Install latest version of vim
+   =============================
+   
+	1. Download the latest vim and install in the default directory
+	2. copy the vim binary to $tools
+	3. delete _vimrc and map it to config
+	if (!(test-path $tools\vim\_vimrc)){
+		$cmd = "cmd /c 'mklink $tools\vim\_vimrc' '$projects\config\_vimrc'" 
+		invoke-expression $cmd 
+	}else {
+		write-host "vim vimrc is already mapped" -fore cyan
+	}
+	4. Mklink pathogen -
+	if (!(test-path $tools\Vim\vim74\autoload\pathogen.vim)){
+		$cmd = "cmd /c 'mklink $tools\Vim\vim74\autoload\pathogen.vim' '$projects\config\pathogen.vim'" 
+		invoke-expression $cmd 
+	}else {
+		write-host "vim pathogen.vim is already mapped" -fore cyan
+	}
+	6. Mklink vim colors -
+	if (!(test-path $tools\vim\vim74\colors)){
+		$cmd = "cmd /c 'mklink /D $tools\vim\vim74\colors\' '$projects\config\colors\'" 
+		invoke-expression $cmd 
+	}else {
+		write-host "vim colors is already mapped" -fore cyan
+	}
+	7. Mklink bundle -
+	if (!(test-path $tools\vim\vim74\bundle)){
+    $cmd = "cmd /c 'mklink /D $tools\vim\vim74\bundle\' '$projects\config\bundle\'" 
+		invoke-expression $cmd 
+	}else {
+		write-host "vim bundle is already mapped" -fore cyan
+	}
+	

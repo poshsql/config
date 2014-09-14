@@ -1,9 +1,5 @@
 ﻿# General variables {{{
-if ($env:COMPUTERNAME -eq 'shiju' -or $env:COMPUTERNAME -eq 'medusa' -or $env:COMPUTERNAME -eq 'pcshiju' ){
-    set-variable work "D:\Work" 
-}else{
-    set-variable work "C:\Work" 
-}
+set-variable work "D:\Work" 
 
 set-variable TOOLS "$work\tools"
 set-variable PROJECTS "$work\projects" 
@@ -15,7 +11,7 @@ set-variable JUNK "$work\junk"
 set-variable POSHSQL "$work\projects\programming\powershell\poshsql"
 set-variable PS "$work\projects\programming\powershell\"
 set-variable CONFIG "$work\projects\config"
-set-variable VIM "$tools\vim\vim73\gvim.exe"
+set-variable VIM "$tools\vim\vim74\gvim.exe"
 set-variable HOSTS "C:\Windows\System32\Drivers\etc\hosts"
 Write-Host "Setting environment for $computerName" -foregroundcolor cyan
 
@@ -45,10 +41,10 @@ gc $hosts | ? {$_ -notlike '#*' -and $_.ToString().Trim() -ne ""} | % {write-hos
 #}}}
 # Powershell Alias {{{
 new-item alias:np -value "C:\Windows\System32\notepad.exe"
-new-item alias:gvim -value "$tools\vim\vim73\gvim.exe"
-new-item alias:vi -value "$tools\vim\vim73\gvim.exe"
+new-item alias:gvim -value "$tools\vim\vim74\gvim.exe"
+new-item alias:vi -value "$tools\vim\vim74\gvim.exe"
 new-item alias:pixie -value "D:\Work\tools\pixie\pixie.exe"
-new-item alias:vim -value "$tools\vim\vim73\vim.exe"
+new-item alias:vim -value "$tools\vim\vim74\gvim.exe"
 new-item alias:ediff -value "$tools\examdiff.exe"
 new-item alias:ex -value "explorer.exe"
 new-item alias:wm -value "$tools\winmerge\winmergeu.exe"
@@ -56,6 +52,8 @@ new-item alias:vs -value "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Co
 new-item alias:wcf -value "C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\wcftestclient.exe"
 new-item alias:excel -value "C:\Program Files\Microsoft Office 15\root\office15\excel.exe"
 new-item alias:winword -value "C:\Program Files\Microsoft Office 15\root\office15\winword.exe"
+new-item alias:n -value "D:\Work\tools\npp\notepad++.exe"
+
 #For explorer to work in a sepearate process below registry value should be set to 1
 #This makes sure the process starts with a current
 #HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\advanced\SeparateProcess 

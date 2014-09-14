@@ -6,7 +6,6 @@ filetype plugin on
 set textwidth=100
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
-source $VIMRUNTIME/../ExecuteSQL.vim
 behave mswin
 call pathogen#infect() "This is for the Pathogen to work
 call pathogen#helptags()
@@ -117,7 +116,7 @@ map H ^
 map L $
 "deleting all empty lines
 nmap <silent> ,de :g/^\s*$/d<CR>
-map <Leader>x "qy:call ExecuteSQL()<CR>
+
 map <Leader>bn :bn<CR>
 map <Leader><bs> gggqG 
 map <Leader>bp :bp<CR>
